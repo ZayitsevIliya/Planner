@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/styles.css" />
+    <script src="../scripts/scripts.js"></script>
+    <title>Planner</title>
+  </head>
+  <body>
+    <header class="header">
+      <button class="new-task-button">New task</button>
+      <nav class="navigator">
+        <input id="Today" type="radio" name="navigator" value="today" checked />
+        <label for="Today">Today</label>
+        <input id="navigatorWeek" type="radio" name="navigator" value="week" />
+        <label for="navigatorWeek">Week</label>
+        <input id="Month" type="radio" name="navigator" value="month" />
+        <label for="Month">Month</label>
+        <input id="Year" type="radio" name="navigator" value="year" />
+        <label for="Year">Year</label>
+        <div class="active-point"></div>
+      </nav>
+    </header>
+    <main>
+      <article class="content">
+        <article class="year">
+          <h5>Year</h5>
+        </article>
+        <article class="month">
+          <h5>Month</h5>
+        </article>
+        <article class="week">
+          <h5>Week</h5>
+        </article>
+        <article class="today">
+          <header>
+            <h5>Today</h5>
+            <select name="options" id="selector">
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="complete">Completed</option>
+              <option value="deleted">Deleted</option>
+            </select>
+          </header>
+          <ul id="taskListToday"></ul>
+        </article>
+      </article>
+      <article class="modal-new-task">
+        <div role="closer modal window" class="modal-cross" id="modalCross">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="35px"
+            height="35px"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19 5L5 19M5.00001 5L19 19"
+              stroke="#000000"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <form action="/" method="POST" id="form" autocomplete="off">
+          <div class="form-text-input">
+            <label for="taskName">Task name</label>
+            <input
+              class="form-task-name"
+              name="name"
+              id="taskName"
+              type="text"
+            />
+            <label for="taskDescription">Description</label>
+            <textarea
+              class="form-task-description"
+              name="description"
+              id="taskDescription"
+            ></textarea>
+          </div>
+
+          <div class="form-date">
+            <label for="isImpotant"
+              ><input
+                type="checkbox"
+                name="isImpotant"
+                id="impotant"
+              />Impotant</label
+            >
+
+            <input
+              style="width: 100px"
+              type="date"
+              name="date"
+              id="dateField"
+            />
+          </div>
+
+          <div class="form-checkboxes">
+            <label for="Once"
+              ><input
+                name="periodicity"
+                type="radio"
+                value="Once"
+                checked
+              />Once</label
+            >
+            <label for="Daily"
+              ><input
+                name="periodicity"
+                type="radio"
+                value="Daily"
+              />Daily</label
+            >
+            <label for="Weekly"
+              ><input
+                name="periodicity"
+                type="radio"
+                value="Weekly"
+              />Weekly</label
+            >
+            <label for="Monthly">
+              <input
+                name="periodicity"
+                type="radio"
+                value="Monthly"
+              />Monthly</label
+            >
+            <label for="Annualy"
+              ><input
+                name="periodicity"
+                type="radio"
+                value="Annualy"
+              />Annualy</label
+            >
+          </div>
+
+          <button type="submit" class="form-btn-submit" id="buttonSubmitForm">
+            Save
+          </button>
+        </form>
+      </article>
+    </main>
+  </body>
+</html>
