@@ -80,6 +80,7 @@ body {
   height: 700px;
   width: 90%;
   min-width: 600px;
+  max-width: 1200px;
   background-color: aliceblue;
 }
 
@@ -120,12 +121,15 @@ article input {
   width: 150px;
   height: 50px;
   visibility: hidden;
+  opacity: 0;
   border: 1px solid #91c9ff;
   background-color: rgba(70, 162, 255, 0.2);
 }
 
 .modal-new-task-open {
   visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s;
   width: 640px;
   height: 700px;
   background-color: white;
@@ -162,6 +166,7 @@ form {
 
 .form-task-description {
   height: 300px;
+  max-height: 315px;
   border-radius: 10px;
 
   width: 570px;
@@ -203,4 +208,57 @@ form {
 
 .checked-task {
   text-decoration: line-through;
+}
+
+.important-task {
+  background-color: rgb(248, 248, 150);
+  border-radius: 15px;
+  box-shadow: 5px 0px 10px 0px rgb(248, 248, 150),
+    -5px 0px 10px 0px rgb(248, 248, 150);
+}
+
+ul > li {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+ul > li:hover {
+  border-radius: 0;
+  box-shadow: inset 0 0 5px 5px aliceblue;
+  background-color: rgb(228, 242, 254, 0.9);
+}
+
+li > label {
+  width: 100%;
+}
+
+.cancel-task > img {
+  width: 32px;
+  height: 32px;
+}
+
+.cancel-task > img:hover {
+  width: 33px;
+  height: 33px;
+}
+
+.restore-task > img {
+  width: 46px;
+  height: 46px;
+}
+
+.restore-task > img:hover {
+  width: 47px;
+  height: 47px;
+}
+
+.delete-task > img {
+  width: 32px;
+  height: 32px;
+}
+
+.delete-task > img:hover {
+  width: 33px;
+  height: 33px;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/styles.css" />
-    <script src="../scripts/scripts.js"></script>
+    <script type="module" src="../scripts/main.js"></script>
     <title>Planner</title>
   </head>
   <body>
@@ -32,15 +32,15 @@
         </article>
         <article class="week">
           <h5>Week</h5>
+          <ul id="taskListWeek"></ul>
         </article>
         <article class="today">
           <header>
             <h5>Today</h5>
             <select name="options" id="selector">
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="complete">Completed</option>
-              <option value="deleted">Deleted</option>
+              <option value="Active">Active</option>
+              <option value="Completed">Completed</option>
+              <option value="Canceled">Canceled</option>
             </select>
           </header>
           <ul id="taskListToday"></ul>
@@ -72,6 +72,7 @@
               name="name"
               id="taskName"
               type="text"
+              required
             />
             <label for="taskDescription">Description</label>
             <textarea
@@ -82,12 +83,12 @@
           </div>
 
           <div class="form-date">
-            <label for="isImpotant"
+            <label for="isImportant"
               ><input
                 type="checkbox"
-                name="isImpotant"
-                id="impotant"
-              />Impotant</label
+                name="isImportant"
+                id="Important"
+              />Important</label
             >
 
             <input
