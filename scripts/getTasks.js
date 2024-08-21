@@ -33,6 +33,6 @@ const helpers = {
   },
 };
 
-export const active = helpers.getActiveTasks();
-export const completed = helpers.getCompletedTasks();
-export const canceled = helpers.getCanceledTasks();
+export const active = helpers.getActiveTasks;
+export const completed = helpers.getCompletedTasks;
+export const canceled = helpers.getCanceledTasks;

@@ -56,6 +56,8 @@ export default function renderingTask(task) {
       break;
 
     case "Canceled":
+      input.setAttribute("disabled", "");
+
       divCancel.setAttribute("role", "restore task icon");
       divCancel.setAttribute("class", "restore-task");
       divCancel.style.display = "flex";
@@ -66,7 +68,7 @@ export default function renderingTask(task) {
         "https://www.svgrepo.com/show/505254/restore.svg"
       );
 
-      newTask.append(label, divCancel, divDelete);
+      newTask.append(input, label, divCancel, divDelete);
       taskListToday.append(newTask);
       break;
   }

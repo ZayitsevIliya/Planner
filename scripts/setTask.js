@@ -1,4 +1,4 @@
-export default function getValues() {
+export default function setTask() {
   let taskValues = {
     id: localStorage.length,
     name: form.name.value,

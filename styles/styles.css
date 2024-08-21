@@ -77,7 +77,8 @@ body {
 
 .content article {
   position: absolute;
-  height: 700px;
+  height: auto;
+  min-height: 700px;
   width: 90%;
   min-width: 600px;
   max-width: 1200px;
