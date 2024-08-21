@@ -137,6 +137,8 @@ window.onload = function () {
         elem.parentNode.remove();
 
         deleteTaskFromLS();
+
+        renderCurrentTasks();
       };
     });
   }
