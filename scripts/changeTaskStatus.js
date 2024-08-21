@@ -1,4 +1,8 @@
-export default function changeTask(taskNumber, newStatus, isChecked = false) {
+export default function changeTaskStatus(
+  taskNumber,
+  newStatus,
+  isChecked = false
+) {
   let parsedTask = JSON.parse(localStorage[taskNumber]);
 
   if (isChecked) {

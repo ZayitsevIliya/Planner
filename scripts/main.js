@@ -1,7 +1,7 @@
 import setTask from "./setTask.js";
 import renderingTask from "./renderingTask.js";
 import * as tasks from "./getTasks.js";
-import changeTask from "./changeTask.js";
+import changeTaskStatus from "./changeTaskStatus.js";
 import deleteTaskFromLS from "./deleteTaskfromLS.js";
 
 window.onload = function () {
@@ -96,7 +96,7 @@ window.onload = function () {
 
         let newStatus = parent.getAttribute("status");
 
-        changeTask(taskNumber, newStatus, isChecked);
+        changeTaskStatus(taskNumber, newStatus, isChecked);
       });
     });
   }
@@ -109,7 +109,7 @@ window.onload = function () {
         elem.parentNode.remove();
         let taskNumber = elem.parentNode.firstChild.id.slice(4);
         let newStatus = "Canceled";
-        changeTask(taskNumber, newStatus);
+        changeTaskStatus(taskNumber, newStatus);
       };
     });
   }
@@ -120,11 +120,9 @@ window.onload = function () {
     restoringTaskIcon.forEach((elem) => {
       elem.onclick = () => {
         elem.parentNode.remove();
-        let taskNumber = elem.parentNode.firstChild
-          .getAttribute("for")
-          .slice(4);
+        let taskNumber = elem.parentNode.firstChild.id.slice(4);
         let newStatus = "Active";
-        changeTask(taskNumber, newStatus);
+        changeTaskStatus(taskNumber, newStatus);
       };
     });
   }
@@ -135,7 +133,7 @@ window.onload = function () {
     deletintIcons.forEach((elem) => {
       elem.onclick = () => {
         let taskNumber = elem.parentNode.firstChild.id.slice(4);
-        changeTask(taskNumber, "Deleted");
+        changeTaskStatus(taskNumber, "Deleted");
         elem.parentNode.remove();
 
         deleteTaskFromLS();
