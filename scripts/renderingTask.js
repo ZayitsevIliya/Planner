@@ -2,6 +2,8 @@ export default function renderingTask(task) {
   let newTask = document.createElement("li"),
     input = document.createElement("input"),
     label = document.createElement("label"),
+    divEdit = document.createElement("div"),
+    iconEdit = document.createElement("img"),
     divCancel = document.createElement("div"),
     iconCancel = document.createElement("img"),
     divDelete = document.createElement("div"),
@@ -15,7 +17,9 @@ export default function renderingTask(task) {
 
   label.innerText = task.name;
   label.setAttribute("for", input.id);
-  label.setAttribute("title", task.description);
+  let date = task.date.split("-").reverse().toString().replaceAll(",", ".");
+  let title = `${task.description} \nDate of completion: ${date}`;
+  label.setAttribute("title", title);
 
   if (task.isImportant) {
     newTask.className = "important-task";
@@ -33,6 +37,16 @@ export default function renderingTask(task) {
 
   switch (task.status) {
     case "Active":
+      divEdit.setAttribute("role", "edit task icon");
+      divEdit.setAttribute("class", "edit-task");
+      divEdit.style.display = "flex";
+      divEdit.append(iconEdit);
+
+      iconEdit.setAttribute(
+        "src",
+        "https://www.svgrepo.com/show/521620/edit.svg"
+      );
+
       divCancel.setAttribute("role", "cancel task icon");
       divCancel.setAttribute("class", "cancel-task");
       divCancel.style.display = "flex";
@@ -43,7 +57,7 @@ export default function renderingTask(task) {
         "https://www.svgrepo.com/show/486564/cancel.svg"
       );
 
-      newTask.append(input, label, divCancel, divDelete);
+      newTask.append(input, label, divEdit, divCancel, divDelete);
       taskListToday.append(newTask);
       break;
 

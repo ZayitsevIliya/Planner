@@ -1,7 +1,7 @@
 const helpers = {
   getActiveTasks: function () {
     let activeTasks = [];
-    for (let index = 1; index < localStorage.length; index++) {
+    for (let index = 0; index < localStorage.length; index++) {
       let task = JSON.parse(localStorage.getItem(index));
       if (task.status == "Active") {
         activeTasks.push(task);
@@ -12,7 +12,7 @@ const helpers = {
 
   getCompletedTasks: function () {
     let completedTasks = [];
-    for (let index = 1; index < localStorage.length; index++) {
+    for (let index = 0; index < localStorage.length; index++) {
       let task = JSON.parse(localStorage.getItem(index));
       if (task.status == "Completed") {
         completedTasks.push(task);
@@ -23,7 +23,7 @@ const helpers = {
 
   getCanceledTasks: function () {
     let canceledTasks = [];
-    for (let index = 1; index < localStorage.length; index++) {
+    for (let index = 0; index < localStorage.length; index++) {
       let task = JSON.parse(localStorage.getItem(index));
       if (task.status == "Canceled") {
         canceledTasks.push(task);

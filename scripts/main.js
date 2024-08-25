@@ -1,52 +1,68 @@
-import setTask from "./setTask.js";
+import setNewTask from "./setNewTask.js";
+import setEditedTask from "./setEditedTask.js";
 import renderingTask from "./renderingTask.js";
 import * as tasks from "./getTasks.js";
 import changeTaskStatus from "./changeTaskStatus.js";
 import deleteTaskFromLS from "./deleteTaskfromLS.js";
 
 window.onload = function () {
-  const navigator = document.querySelectorAll("nav > input");
-  const newTaskWindow = document.querySelector(".modal-new-task");
+  const newTaskWindow = document.querySelector(".new-task-window");
+
   const newTaskWindowOpen = document.querySelector(".new-task-button");
-  const newTaskWindowClose = document.querySelector("#modalCross");
-  const { form } = document.forms;
+  const newTaskWindowCross = document.querySelector("#newTaskWindowCross");
+
+  const newTaskForm = document.querySelector("#newTaskForm");
+
+  const editTaskWindow = document.querySelector(".editing-task-window");
+  const editingTaskForm = document.querySelector("#editingTaskForm");
+  const editTaskWindowCross = document.querySelector("#editTaskWindowCross");
+
+  const overlayElement = document.querySelector(".overlay");
+
   const taskStatus = document.querySelector("select");
 
-  taskStatus.value = localStorage.getItem(0) || "Active";
-  localStorage.setItem(0, taskStatus.value);
+  function overlay(state) {
+    if (state == "open") {
+      overlayElement.style.display = "block";
 
-  navigator.forEach((elem) => {
-    elem.onclick = function () {
-      let allGradation = document.querySelectorAll(".content > article");
-      let currentGradation = document.querySelector(`.${elem.value}`);
+      overlayElement.onclick = () => {
+        overlayElement.style.display = "none";
+        newTaskWindow.classList.remove("new-task-window-open");
+        editTaskWindow.classList.remove("editing-task-window-open");
+      };
+    }
 
-      allGradation.forEach((item) => {
-        item == currentGradation
-          ? (item.style.visibility = "visible")
-          : (item.style.visibility = "hidden");
-      });
-    };
-  });
+    if (state == "close") {
+      overlayElement.style.display = "none";
+    }
+  }
 
   newTaskWindowOpen.onclick = function () {
-    newTaskWindow.classList.add("modal-new-task-open");
-    document.querySelector("#dateField").valueAsDate = new Date();
+    newTaskWindow.classList.add("new-task-window-open");
+    document.querySelector("#dateFieldNewTask").valueAsDate = new Date();
+    overlay("open");
   };
 
-  newTaskWindowClose.onclick = function () {
-    newTaskWindow.classList.remove("modal-new-task-open");
+  newTaskWindowCross.onclick = function () {
+    newTaskWindow.classList.remove("new-task-window-open");
+    overlay("close");
   };
 
-  form.addEventListener("submit", (event) => {
-    setTask();
+  editTaskWindowCross.onclick = function () {
+    editTaskWindow.classList.remove("editing-task-window-open");
+    overlay("close");
+  };
+
+  newTaskForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    setNewTask();
     renderCurrentTasks();
     event.target.reset();
-    newTaskWindow.classList.remove("modal-new-task-open");
+    newTaskWindow.classList.remove("new-task-window-open");
+    overlay("close");
   });
 
-  taskStatus.addEventListener("change", (event) => {
-    localStorage.setItem(0, taskStatus.value);
+  taskStatus.addEventListener("change", () => {
     renderCurrentTasks();
   });
 
@@ -68,11 +84,12 @@ window.onload = function () {
         break;
     }
 
-    currentTasks.forEach((elem) => {
-      renderingTask(elem);
+    currentTasks.forEach((task) => {
+      renderingTask(task);
     });
 
     completingTask();
+    editingTask();
     cancelingTask();
     restoringTask();
     deletingTask();
@@ -98,6 +115,39 @@ window.onload = function () {
 
         changeTaskStatus(taskNumber, newStatus, isChecked);
       });
+    });
+  }
+
+  function editingTask() {
+    const editIcons = document.querySelectorAll(".edit-task");
+
+    editIcons.forEach((elem) => {
+      elem.onclick = function () {
+        let taskNumber = elem.parentNode.firstChild.id.slice(4);
+        let task = localStorage.getItem(taskNumber);
+        let parsedTask = JSON.parse(task);
+
+        editTaskWindow.classList.add("editing-task-window-open");
+        overlay("open");
+
+        editingTaskForm.name.value = parsedTask.name;
+        editingTaskForm.description.value = parsedTask.description;
+        editingTaskForm.isImportant.checked = parsedTask.isImportant;
+        editingTaskForm.date.value = parsedTask.date;
+
+        editingTaskForm.addEventListener(
+          "submit",
+          (event) => {
+            event.preventDefault();
+            setEditedTask(taskNumber);
+            renderCurrentTasks();
+
+            editTaskWindow.classList.remove("editing-task-window-open");
+            overlay("close");
+          },
+          { once: true }
+        );
+      };
     });
   }
 
@@ -144,8 +194,4 @@ window.onload = function () {
   }
 
   renderCurrentTasks();
-
-  console.log(Object.entries(localStorage));
-
-  // localStorage.clear();
 };
